@@ -32,3 +32,21 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore all target/ directories recursively (root + submodules)
+**/target/
+
+# Optional: Common IDE folders
+.idea/
+
+# Optional: OS-specific files
+.DS_Store
+Thumbs.db
+
+# Optional: logs
+*.log
+
+# Optional: Maven wrapper
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+
