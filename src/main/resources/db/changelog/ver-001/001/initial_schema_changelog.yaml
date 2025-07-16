@@ -1,0 +1,371 @@
+databaseChangeLog:
+  - changeSet:
+      id: initial-schema-001
+      author: abdul-mueed-shz
+      changes:
+        - createTable:
+            tableName: githubuser
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: hireable
+                  type: BOOLEAN
+              - column:
+                  name: bio
+                  type: VARCHAR(255)
+              - column:
+                  name: company
+                  type: VARCHAR(255)
+              - column:
+                  name: blog
+                  type: VARCHAR(255)
+              - column:
+                  name: htmlurl
+                  type: VARCHAR(255)
+              - column:
+                  name: avatarurl
+                  type: VARCHAR(255)
+              - column:
+                  name: createdat
+                  type: TIMESTAMP
+              - column:
+                  name: updatedat
+                  type: TIMESTAMP
+              - column:
+                  name: accesstoken
+                  type: VARCHAR(255)
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: googlecredential
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: credentialskey
+                  type: VARCHAR(255)
+              - column:
+                  name: createdat
+                  type: TIMESTAMP
+              - column:
+                  name: updatedat
+                  type: TIMESTAMP
+              - column:
+                  name: accesstoken
+                  type: VARCHAR(255)
+              - column:
+                  name: expirationtimemilliseconds
+                  type: BIGINT
+              - column:
+                  name: refreshtoken
+                  type: VARCHAR(255)
+        - createTable:
+            tableName: googleuser
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: authuserid
+                  type: VARCHAR(255)
+              - column:
+                  name: googleid
+                  type: VARCHAR(255)
+              - column:
+                  name: picture
+                  type: VARCHAR(255)
+              - column:
+                  name: createdat
+                  type: TIMESTAMP
+              - column:
+                  name: updatedat
+                  type: TIMESTAMP
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: linkedinuser
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: state
+                  type: VARCHAR(255)
+              - column:
+                  name: idtoken
+                  type: VARCHAR(255)
+              - column:
+                  name: accesstoken
+                  type: VARCHAR(255)
+              - column:
+                  name: usedauthcode
+                  type: VARCHAR(255)
+              - column:
+                  name: tokenscope
+                  type: VARCHAR(255)
+              - column:
+                  name: expiresin
+                  type: VARCHAR(255)
+              - column:
+                  name: tokentype
+                  type: VARCHAR(255)
+              - column:
+                  name: picture
+                  type: VARCHAR(255)
+              - column:
+                  name: createdat
+                  type: TIMESTAMP
+              - column:
+                  name: updatedat
+                  type: TIMESTAMP
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: permission
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+
+        - createTable:
+            tableName: twitteruser
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: state
+                  type: VARCHAR(255)
+              - column:
+                  name: accesstoken
+                  type: VARCHAR(255)
+              - column:
+                  name: refreshtoken
+                  type: VARCHAR(255)
+              - column:
+                  name: expiresin
+                  type: VARCHAR(255)
+              - column:
+                  name: picture
+                  type: VARCHAR(255)
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  name: createdat
+                  type: TIMESTAMP
+              - column:
+                  name: updatedat
+                  type: TIMESTAMP
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: firstname
+                  type: VARCHAR(255)
+              - column:
+                  name: lastname
+                  type: VARCHAR(255)
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  name: createdat
+                  type: TIMESTAMP
+              - column:
+                  name: updatedat
+                  type: TIMESTAMP
+
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: role_permission
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: permission_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+
+
+        - addForeignKeyConstraint:
+            constraintName: user_roles_user_constraint
+            baseTableName: user_roles
+            baseColumnNames: user_id
+            referencedTableName: user
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: user_roles_role_constraint
+            baseTableName: user_roles
+            baseColumnNames: role_id
+            referencedTableName: role
+            referencedColumnNames: id
+
+        - addUniqueConstraint:
+            tableName: user_roles
+            columnNames: user_id, role_id
+            constraintName: user_roles_unique_constraint
+
+        - addForeignKeyConstraint:
+            constraintName: role_permission_role_constraint
+            baseTableName: role_permission
+            baseColumnNames: role_id
+            referencedTableName: role
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: role_permission_permission_constraint
+            baseTableName: role_permission
+            baseColumnNames: permission_id
+            referencedTableName: permission
+            referencedColumnNames: id
+
+        - addUniqueConstraint:
+            tableName: role_permission
+            columnNames: role_id, permission_id
+            constraintName: role_permission_unique_constraint
+
+        - addForeignKeyConstraint:
+            constraintName: github_user_constraint
+            baseTableName: githubuser
+            baseColumnNames: user_id
+            referencedTableName: user
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: google_user_constraint
+            baseTableName: googleuser
+            baseColumnNames: user_id
+            referencedTableName: user
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: linkedin_user_constraint
+            baseTableName: linkedinuser
+            baseColumnNames: user_id
+            referencedTableName: user
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: twitter_user_constraint
+            baseTableName: twitteruser
+            baseColumnNames: user_id
+            referencedTableName: user
+            referencedColumnNames: id

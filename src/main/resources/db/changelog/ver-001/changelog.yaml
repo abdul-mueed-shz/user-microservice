@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/ver-001/001/initial_schema_changelog.yaml
+  - include:
+      file: db/changelog/ver-001/001/seed_role_permissions_changelog.yaml

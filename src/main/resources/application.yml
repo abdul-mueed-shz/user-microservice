@@ -1,0 +1,118 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.security: DEBUG
+
+app:
+  jwt:
+    secret-key: "0459022f685c9af39d232c64d010892e406dfea4ec282e36d00512ce33401180"
+    token-validity: 1440000
+
+
+microservices:
+  user-admin:
+    url: http://localhost:8081/api/v1
+
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+          x:
+            authorization-uri: https://x.com/i/oauth2/authorize
+            token-uri: https://api.x.com/2/oauth2/token
+            user-info-uri: https://api.x.com/2/users/me
+          linkedin:
+            authorization-uri: https://www.linkedin.com/oauth/v2/authorization
+            token-uri: https://www.linkedin.com/oauth/v2/accessToken
+            user-info-uri: https://api.linkedin.com/v2/userinfo
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            emails-uri: https://api.github.com/user/emails
+        registration:
+          github:
+            client-name: ${OAUTH2.GITHUB.CLIENT_NAME}
+            redirect-uri: ${OAUTH2.GITHUB.REDIRECT_URI}
+            authorization-grant-type: code
+            token-grant-type-param: authorization_code
+            client-id: ${OAUTH2.GITHUB.CLIENT_ID}
+            client-secret: ${OAUTH2.GITHUB.CLIENT_SECRET}
+            scope:
+              - read:user
+              - user:email
+          x:
+            pkce-code-challenge: ${OAUTH2.TWITTER.PKCE.CODE.CHALLENGE}
+            pkce-code-verifier: ${OAUTH2.TWITTER.PKCE.CODE.VERIFIER}
+            client-name: ${OAUTH2.TWITTER.CLIENT_NAME}
+            redirect-uri: ${OAUTH2.TWITTER.REDIRECT_URI}
+            authorization-grant-type: code
+            token-grant-type-param: authorization_code
+            client-id: ${OAUTH2.TWITTER.CLIENT_ID}
+            client-secret: ${OAUTH2.TWITTER.CLIENT_SECRET}
+            bearer-token: ${OAUTH2.TWITTER.BEARER_TOKEN}
+            access-token: ${OAUTH2.TWITTER.ACCESS_TOKEN}
+            access-token-secret: ${OAUTH2.TWITTER.ACCESS_TOKEN_SECRET}
+            scope: offline.access,tweet.read,users.read
+          linkedin:
+            client-name: ${OAUTH2.LINKEDIN.CLIENT_NAME}
+            redirect-uri: ${OAUTH2.LINKEDIN.REDIRECT_URI}
+            authorization-grant-type: code
+            token-grant-type-param: authorization_code
+            client-id: ${OAUTH2.LINKEDIN.CLIENT_ID}
+            client-secret: ${OAUTH2.LINKEDIN.CLIENT_SECRET}
+            scope:
+              - openid
+              - profile
+              - email
+          google:
+            client-name: ${OAUTH2.GOOGLE.CLIENT_NAME}
+            redirect-uri: ${OAUTH2.GOOGLE.REDIRECT_URI}
+            authorization-grant-type: code
+            client-id: ${OAUTH2.GOOGLE.CLIENT_ID}
+            scope:
+              - https://www.googleapis.com/auth/userinfo.email
+              - https://www.googleapis.com/auth/userinfo.profile
+              - openid
+            client-secret: ${OAUTH2.GOOGLE.CLIENT_SECRET}
+            access_type: offline
+
+  application:
+    name: user-admin
+    client-app-home-url: https://abdulsaasapp.com # Sample url, Replace this with the actual url of the client app.
+  datasource:
+    url: ${DATASOURCE.URL}
+    driver-class-name: ${DATASOURCE.DRIVER.CLASS}
+    username: ${DATASOURCE.USERNAME}                # Default H2 username
+    password: ${DATASOURCE.PASSWORD}                # Default H2 password is empty
+
+  
+  
+  liquibase:
+    change-log: classpath:/db/changelog/master_changelog.yaml # Update path if different
+    enabled: true
+
+  h2:
+    console:
+      enabled: true             # Enables the H2 console at /h2-console
+      path: /h2-console
+  sql:
+    init:
+      platform: h2
+
+  jpa:
+    database-platform: ${JPA.DATABASE.PLATFORM}  # H2 dialect for JPA
+    hibernate:
+      ddl-auto: update             # Automatically creates and updates tables based on entities
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
