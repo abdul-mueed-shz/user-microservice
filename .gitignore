@@ -50,3 +50,5 @@ Thumbs.db
 .mvn/
 !/.mvn/wrapper/maven-wrapper.jar
 
+# .gitignore
+/src/main/resources/application-dev.yaml
