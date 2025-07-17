@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  admin-app:
+    build: .
+    container_name: admin-app
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
