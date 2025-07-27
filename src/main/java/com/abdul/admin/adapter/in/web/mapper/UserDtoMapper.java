@@ -8,11 +8,11 @@ import com.abdul.admin.domain.twitter.model.TwitterUserResponse;
 import com.abdul.admin.domain.user.model.AccessToken;
 import com.abdul.admin.domain.user.model.OauthLoginRequest;
 import com.abdul.admin.domain.user.model.UserRegistrationRequestInfo;
-import com.abdul.admin.dto.Oauth2LoginRequest;
-import com.abdul.admin.dto.Oauth2LoginResponse;
-import com.abdul.admin.dto.RegisterUserRequest;
-import com.abdul.admin.dto.UserDetailResponse;
-import com.abdul.admin.dto.UserResponse;
+import com.abdul.dto.Oauth2LoginRequest;
+import com.abdul.dto.Oauth2LoginResponse;
+import com.abdul.dto.RegisterUserRequest;
+import com.abdul.dto.UserDetailResponse;
+import com.abdul.dto.UserResponse;
 import com.abdul.toolkit.utils.linkedin.model.LinkedinUserResponse;
 import com.abdul.toolkit.utils.user.model.UserInfo;
 import java.time.LocalDateTime;
@@ -29,6 +29,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserDtoMapper {
 
+    @Mapping(source = "accessToken", target = "tokenInfo.accessToken")
+    @Mapping(source = "refreshToken", target = "tokenInfo.refreshToken")
     Oauth2LoginResponse map(com.abdul.admin.domain.user.model.Oauth2LoginResponse oauth2LoginResponse);
 
     OauthLoginRequest map(Oauth2LoginRequest oauth2LoginRequest);

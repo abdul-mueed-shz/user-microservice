@@ -1,9 +1,9 @@
 package com.abdul.admin.adapter.in.web.mapper;
 
 import com.abdul.admin.domain.user.model.OauthLoginRequest;
-import com.abdul.admin.dto.AuthenticationInfo;
-import com.abdul.admin.dto.Oauth2LoginRequest;
-import com.abdul.admin.dto.Oauth2LoginResponse;
+import com.abdul.dto.AuthenticationInfo;
+import com.abdul.dto.Oauth2LoginRequest;
+import com.abdul.dto.Oauth2LoginResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 

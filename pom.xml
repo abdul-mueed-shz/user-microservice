@@ -33,8 +33,6 @@
     <spring-cloud.version>2023.0.2</spring-cloud.version> <!-- Latest compatible Spring Cloud version -->
     <org.mapstruct.version>1.5.5.Final</org.mapstruct.version> <!-- Latest stable version of MapStruct -->
     <org.lombok.version>1.18.28</org.lombok.version> <!-- Latest version of Lombok -->
-    <openapi-generator-maven-plugin-version>7.0.1
-    </openapi-generator-maven-plugin-version> <!-- Latest version of OpenAPI Generator plugin -->
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -168,27 +166,6 @@
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-api</artifactId>
-      <version>0.12.6</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-impl</artifactId>
-      <version>0.12.6</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson -->
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-jackson</artifactId>
-      <version>0.12.6</version>
-    </dependency>
-
     <dependency>
       <groupId>com.abdul.toolkit</groupId>
       <artifactId>security</artifactId>
@@ -196,12 +173,6 @@
       <scope>compile</scope>
     </dependency>
 
-    <dependency>
-      <groupId>com.abdul.toolkit</groupId>
-      <artifactId>feign</artifactId>
-      <version>1.0.0</version>
-      <scope>compile</scope>
-    </dependency>
     <dependency>
       <groupId>com.abdul.toolkit</groupId>
       <artifactId>utils</artifactId>
@@ -258,38 +229,6 @@
             <goals>
               <goal>repackage</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- OpenAPI Generator Plugin -->
-      <plugin>
-        <groupId>org.openapitools</groupId>
-        <artifactId>openapi-generator-maven-plugin</artifactId>
-        <version>${openapi-generator-maven-plugin-version}</version>
-        <executions>
-          <execution>
-            <id>User.yaml</id>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-            <configuration>
-              <inputSpec>${project.basedir}/src/main/resources/swagger/User.yaml</inputSpec>
-              <output>${project.build.directory}/generated-sources/swagger</output>
-              <generatorName>spring</generatorName>
-              <configOptions>
-                <dateLibrary>java8</dateLibrary>
-                <useJakartaEe>true</useJakartaEe>
-              </configOptions>
-              <generateApis>false</generateApis>
-              <generateApiTests>false</generateApiTests>
-              <generateApiDocumentation>false</generateApiDocumentation>
-              <generateModels>true</generateModels>
-              <generateModelTests>false</generateModelTests>
-              <generateModelDocumentation>false</generateModelDocumentation>
-              <modelPackage>com.abdul.admin.dto</modelPackage>
-              <generateSupportingFiles>false</generateSupportingFiles>
-            </configuration>
           </execution>
         </executions>
       </plugin>
