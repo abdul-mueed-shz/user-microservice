@@ -4,7 +4,7 @@ import com.abdul.admin.domain.auth.model.AuthenticationInfo;
 import com.abdul.admin.domain.auth.model.AuthenticationRequestInfo;
 import com.abdul.admin.domain.auth.port.in.AuthenticateUserUseCase;
 import com.abdul.admin.domain.user.port.in.GetUserDetailUseCase;
-import com.abdul.toolkit.security.domain.auth.port.in.GenerateJwtTokenUseCase;
+import com.abdul.toolkit.utils.jwt.port.in.GenerateJwtTokenUseCase;
 import com.abdul.toolkit.utils.user.model.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
