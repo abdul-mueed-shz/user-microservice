@@ -88,26 +88,19 @@ spring:
   application:
     name: user-admin
     client-app-home-url: https://abdulsaasapp.com # Sample url, Replace this with the actual url of the client app.
+
   datasource:
     url: ${DATASOURCE.URL}
     driver-class-name: ${DATASOURCE.DRIVER.CLASS}
     username: ${DATASOURCE.USERNAME}                # Default H2 username
     password: ${DATASOURCE.PASSWORD}                # Default H2 password is empty
 
-  
-  
   liquibase:
     change-log: classpath:/db/changelog/master_changelog.yaml # Update path if different
     enabled: true
-
-  h2:
-    console:
-      enabled: true             # Enables the H2 console at /h2-console
-      path: /h2-console
   sql:
     init:
       platform: h2
-
   jpa:
     database-platform: ${JPA.DATABASE.PLATFORM}  # H2 dialect for JPA
     hibernate:
