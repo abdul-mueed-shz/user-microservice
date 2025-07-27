@@ -104,7 +104,7 @@ spring:
   jpa:
     database-platform: ${JPA.DATABASE.PLATFORM}  # H2 dialect for JPA
     hibernate:
-      ddl-auto: update             # Automatically creates and updates tables based on entities
+      ddl-auto: none    # update -> Automatically creates and updates tables based on entities
     show-sql: true
     properties:
       hibernate:
