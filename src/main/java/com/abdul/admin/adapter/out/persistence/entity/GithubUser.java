@@ -62,7 +62,7 @@ public class GithubUser implements Serializable {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column
+    @Column(length = 2056)
     private String accessToken;
 
     @OneToOne(mappedBy = "githubUser")

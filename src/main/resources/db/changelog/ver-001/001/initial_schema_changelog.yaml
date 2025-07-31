@@ -4,7 +4,7 @@ databaseChangeLog:
       author: abdul-mueed-shz
       changes:
         - createTable:
-            tableName: githubuser
+            tableName: github_user
             columns:
               - column:
                   name: id
@@ -26,28 +26,23 @@ databaseChangeLog:
                   name: blog
                   type: VARCHAR(255)
               - column:
-                  name: htmlurl
+                  name: html_url
                   type: VARCHAR(255)
               - column:
-                  name: avatarurl
+                  name: avatar_url
                   type: VARCHAR(255)
               - column:
-                  name: createdat
+                  name: created_at
                   type: TIMESTAMP
               - column:
-                  name: updatedat
+                  name: updated_at
                   type: TIMESTAMP
               - column:
-                  name: accesstoken
-                  type: VARCHAR(255)
-              - column:
-                  name: user_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
+                  name: access_token
+                  type: VARCHAR(2056)
 
         - createTable:
-            tableName: googlecredential
+            tableName: google_credential
             columns:
               - column:
                   name: id
@@ -57,25 +52,26 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: credentialskey
-                  type: VARCHAR(255)
+                  name: credentials_key
+                  type: VARCHAR(2056)
               - column:
-                  name: createdat
+                  name: created_at
                   type: TIMESTAMP
               - column:
-                  name: updatedat
+                  name: updated_at
                   type: TIMESTAMP
               - column:
-                  name: accesstoken
-                  type: VARCHAR(255)
+                  name: access_token
+                  type: VARCHAR(2056)
               - column:
-                  name: expirationtimemilliseconds
+                  name: expiration_time_milliseconds
                   type: BIGINT
               - column:
-                  name: refreshtoken
-                  type: VARCHAR(255)
+                  name: refresh_token
+                  type: VARCHAR(2056)
+
         - createTable:
-            tableName: googleuser
+            tableName: google_user
             columns:
               - column:
                   name: id
@@ -85,28 +81,23 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: authuserid
-                  type: VARCHAR(255)
+                  name: auth_user_id
+                  type: VARCHAR(2056)
               - column:
-                  name: googleid
-                  type: VARCHAR(255)
+                  name: google_id
+                  type: VARCHAR(2056)
               - column:
                   name: picture
                   type: VARCHAR(255)
               - column:
-                  name: createdat
+                  name: created_at
                   type: TIMESTAMP
               - column:
-                  name: updatedat
+                  name: updated_at
                   type: TIMESTAMP
-              - column:
-                  name: user_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
 
         - createTable:
-            tableName: linkedinuser
+            tableName: linkedin_user
             columns:
               - column:
                   name: id
@@ -119,37 +110,32 @@ databaseChangeLog:
                   name: state
                   type: VARCHAR(255)
               - column:
-                  name: idtoken
+                  name: id_token
+                  type: VARCHAR(2056)
+              - column:
+                  name: access_token
+                  type: VARCHAR(2056)
+              - column:
+                  name: used_auth_code
                   type: VARCHAR(255)
               - column:
-                  name: accesstoken
+                  name: token_scope
                   type: VARCHAR(255)
               - column:
-                  name: usedauthcode
+                  name: expires_in
                   type: VARCHAR(255)
               - column:
-                  name: tokenscope
-                  type: VARCHAR(255)
-              - column:
-                  name: expiresin
-                  type: VARCHAR(255)
-              - column:
-                  name: tokentype
+                  name: token_type
                   type: VARCHAR(255)
               - column:
                   name: picture
                   type: VARCHAR(255)
               - column:
-                  name: createdat
+                  name: created_at
                   type: TIMESTAMP
               - column:
-                  name: updatedat
+                  name: updated_at
                   type: TIMESTAMP
-              - column:
-                  name: user_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
 
         - createTable:
             tableName: permission
@@ -164,12 +150,16 @@ databaseChangeLog:
               - column:
                   name: name
                   type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
               - column:
                   name: created_at
                   type: TIMESTAMP
               - column:
                   name: updated_at
                   type: TIMESTAMP
+
         - createTable:
             tableName: role
             columns:
@@ -183,6 +173,9 @@ databaseChangeLog:
               - column:
                   name: name
                   type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
               - column:
                   name: created_at
                   type: TIMESTAMP
@@ -191,7 +184,7 @@ databaseChangeLog:
                   type: TIMESTAMP
 
         - createTable:
-            tableName: twitteruser
+            tableName: twitter_user
             columns:
               - column:
                   name: id
@@ -202,36 +195,41 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: state
-                  type: VARCHAR(255)
+                  type: VARCHAR
               - column:
-                  name: accesstoken
-                  type: VARCHAR(255)
+                  name: access_token
+                  type: VARCHAR(2056)
               - column:
-                  name: refreshtoken
-                  type: VARCHAR(255)
+                  name: refresh_token
+                  type: VARCHAR(2056)
               - column:
-                  name: expiresin
-                  type: VARCHAR(255)
+                  name: expires_in
+                  type: VARCHAR
               - column:
                   name: picture
-                  type: VARCHAR(255)
+                  type: VARCHAR
               - column:
                   name: username
-                  type: VARCHAR(255)
+                  type: VARCHAR
               - column:
-                  name: createdat
+                  name: used_auth_code
+                  type: VARCHAR
+              - column:
+                  name: token_scope
+                  type: VARCHAR
+              - column:
+                  name: token_type
+                  type: VARCHAR
+              - column:
+                  name: created_at
                   type: TIMESTAMP
               - column:
-                  name: updatedat
+                  name: updated_at
                   type: TIMESTAMP
-              - column:
-                  name: user_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
+
 
         - createTable:
-            tableName: user
+            tableName: users
             columns:
               - column:
                   name: id
@@ -241,10 +239,10 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: firstname
+                  name: first_name
                   type: VARCHAR(255)
               - column:
-                  name: lastname
+                  name: last_name
                   type: VARCHAR(255)
               - column:
                   name: username
@@ -256,11 +254,45 @@ databaseChangeLog:
                   name: password
                   type: VARCHAR(255)
               - column:
-                  name: createdat
+                  name: created_at
                   type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
               - column:
-                  name: updatedat
+                  name: updated_at
                   type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+              - column:
+                  name: is_system_lock
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: are_credentials_valid
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+              - column:
+                  name: email_verified
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: google_user_id
+                  type: BIGINT
+              - column:
+                  name: linkedin_user_id
+                  type: BIGINT
+              - column:
+                  name: twitter_user_id
+                  type: BIGINT
+              - column:
+                  name: github_user_id
+                  type: BIGINT
 
         - createTable:
             tableName: user_roles
@@ -303,12 +335,11 @@ databaseChangeLog:
                   name: updated_at
                   type: TIMESTAMP
 
-
         - addForeignKeyConstraint:
-            constraintName: user_roles_user_constraint
+            constraintName: user_roles_users_constraint
             baseTableName: user_roles
             baseColumnNames: user_id
-            referencedTableName: user
+            referencedTableName: users
             referencedColumnNames: id
 
         - addForeignKeyConstraint:
@@ -343,29 +374,29 @@ databaseChangeLog:
             constraintName: role_permission_unique_constraint
 
         - addForeignKeyConstraint:
-            constraintName: github_user_constraint
-            baseTableName: githubuser
-            baseColumnNames: user_id
-            referencedTableName: user
+            constraintName: github_users_constraint
+            baseTableName: users
+            baseColumnNames: github_user_id
+            referencedTableName: github_user
             referencedColumnNames: id
 
         - addForeignKeyConstraint:
-            constraintName: google_user_constraint
-            baseTableName: googleuser
-            baseColumnNames: user_id
-            referencedTableName: user
+            constraintName: google_users_constraint
+            baseTableName: users
+            baseColumnNames: google_user_id
+            referencedTableName: google_user
             referencedColumnNames: id
 
         - addForeignKeyConstraint:
-            constraintName: linkedin_user_constraint
-            baseTableName: linkedinuser
-            baseColumnNames: user_id
-            referencedTableName: user
+            constraintName: linkedin_users_constraint
+            baseTableName: users
+            baseColumnNames: linkedin_user_id
+            referencedTableName: linkedin_user
             referencedColumnNames: id
 
         - addForeignKeyConstraint:
-            constraintName: twitter_user_constraint
-            baseTableName: twitteruser
-            baseColumnNames: user_id
-            referencedTableName: user
+            constraintName: twitter_users_constraint
+            baseTableName: users
+            baseColumnNames: twitter_user_id
+            referencedTableName: twitter_user
             referencedColumnNames: id
