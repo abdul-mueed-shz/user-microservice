@@ -1,6 +1,8 @@
 package com.abdul.admin.domain.google.usecase;
 
 import com.abdul.admin.adapter.in.web.mapper.UserDtoMapper;
+import com.abdul.admin.domain.auth.model.AuthenticationInfo;
+import com.abdul.admin.domain.auth.port.in.AuthenticateUserUseCase;
 import com.abdul.admin.domain.google.model.GoogleOauthRedirectInfo;
 import com.abdul.admin.domain.google.model.GoogleUserResponse;
 import com.abdul.admin.domain.google.port.in.GetGoogleOAuthRedirectUriUseCase;
@@ -16,11 +18,13 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
+import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,26 +39,34 @@ public class HandleGoogleOAuthRedirectUseCaseImpl implements HandleGoogleOAuthRe
     private final UserRepository userRepository;
     private final UpdateUserUseCase updateUserUseCase;
     private final UserInfoMapper userInfoMapper;
+    private final AuthenticateUserUseCase authenticateUserUseCase;
 
     @Value("${spring.application.client-app-home-url}")
     private String clientAppHomeUrl;
 
+    @Transactional
     @Override
     public Oauth2LoginResponse execute(GoogleOauthRedirectInfo googleOauthRedirectInfo) throws IOException {
         Credential credential = authorizationCodeFlow.loadCredential(googleOauthRedirectInfo.getAuthuser());
         UserInfo userInfo = getUserByState(googleOauthRedirectInfo.getAuthuser());
+        UserInfo userReInfo = null;
         if (Objects.nonNull(credential) && Objects.nonNull(userInfo)) {
-            executeTokenValidationFlow(
+            userReInfo = executeTokenValidationFlow(
                     userInfo,
                     credential,
                     googleOauthRedirectInfo.getCode(),
                     googleOauthRedirectInfo.getAuthuser());
         } else {
-            executeAuthCodeFlow(googleOauthRedirectInfo.getCode(), googleOauthRedirectInfo.getAuthuser());
+            userReInfo = executeAuthCodeFlow(googleOauthRedirectInfo.getCode(),
+                    googleOauthRedirectInfo.getAuthuser());
         }
+        if (Objects.isNull(userReInfo)) {
+            throw new BadCredentialsException("Invalid username or password");
+        }
+        AuthenticationInfo authenticationInfo = authenticateUserUseCase.authenticate(userReInfo);
         return Oauth2LoginResponse.builder()
-                .accessToken("System Generated")
-                .refreshToken("System Generated")
+                .accessToken(authenticationInfo.getAccessToken())
+                .refreshToken(authenticationInfo.getRefreshToken())
                 .build();
     }
 
@@ -63,17 +75,17 @@ public class HandleGoogleOAuthRedirectUseCaseImpl implements HandleGoogleOAuthRe
         return userRepository.findByGoogleAuthUser(authUser);
     }
 
-    private void executeTokenValidationFlow(UserInfo userInfo, Credential credential, String code, String authUser)
+    private UserInfo executeTokenValidationFlow(UserInfo userInfo, Credential credential, String code, String authUser)
             throws IOException {
         if (isAccessTokenValid(userInfo.getGoogleUser().getCreatedAt(),
                 String.valueOf(credential.getExpiresInSeconds()))
                 || credential.refreshToken()) {
-            return;
+            return null;
         }
-        executeAuthCodeFlow(code, authUser);
+        return executeAuthCodeFlow(code, authUser);
     }
 
-    private void executeAuthCodeFlow(String code, String authUser) throws IOException {
+    private UserInfo executeAuthCodeFlow(String code, String authUser) throws IOException {
         AuthorizationCodeTokenRequest tokenRequest = authorizationCodeFlow.newTokenRequest(code)
                 .setRedirectUri(getGoogleOAuthRedirectUriUseCase.execute());
         TokenResponse tokenResponse = tokenRequest.execute();
@@ -81,10 +93,11 @@ public class HandleGoogleOAuthRedirectUseCaseImpl implements HandleGoogleOAuthRe
         GoogleUserResponse googleUserResponse = getUserProfileUseCase.execute(authUser);
         UserInfo userInfo = userRepository.findByUsernameOrEmail(googleUserResponse.getEmail());
         if (Objects.nonNull(userInfo)) {
-            updateUserUseCase.execute(userInfoMapper.map(userInfo, googleUserResponse, authUser));
-            return;
+            UserInfo updatedUser =
+                    updateUserUseCase.execute(userInfoMapper.map(userInfo, googleUserResponse, authUser));
+            return updatedUser;
         }
-        registerUserUseCase.execute(userDtoMapper.map(googleUserResponse, authUser));
+        return registerUserUseCase.execute(userDtoMapper.map(googleUserResponse, authUser));
     }
 
     protected boolean isAccessTokenValid(LocalDateTime createdAt, String expiresInSeconds) {
